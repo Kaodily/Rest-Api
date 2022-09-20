@@ -11,17 +11,25 @@ import './App.css'
 function App() {
   const [countries, setCountries] = useState([])
   const [image, setImage] = useState(darkImage)
-  let m;
   const fetchData = () => {
     fetch('https://restcountries.com/v3.1/all')
       .then(res => res.json())
       .then(data => setCountries(data))
     .catch(err => console.log(err))
   }
-  // console.log(m)
   useEffect(() => {
     fetchData()
   }, [])
+ 
+  useEffect(() => {
+    let data = localStorage.getItem('countries')
+    setCountries(JSON.parse(data))
+    console.log(countries)
+  }, [])
+  
+  useEffect(() => {
+    localStorage.setItem('countries',JSON.stringify(countries))
+  })
   const handleChange = (e) => {
     // let filtered = countries.filter(item => item.name.common.includes(e.target.value))
     if (e.target.value === '') {
@@ -37,8 +45,8 @@ function App() {
 
   const body = document.querySelector('body')
   const handleClick = () => {
-    body.classList.toggle('dark')
     setImage(prev => prev === darkImage ? lightImage: darkImage)
+    body.classList.toggle('dark')
   }
   // console.log(countries)
   return (
