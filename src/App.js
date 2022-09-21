@@ -1,110 +1,142 @@
-import React, { Fragment, useEffect, useState } from 'react'
-import {BrowserRouter,Routes,Route} from 'react-router-dom'
-import Header from './components/Header'
-import Home from './components/Home/Home'
-import Details from './components/CountryDetail/CountryDetails'
-import lightImage from './assets/icon-moon.svg'
-import darkImage from './assets/icon-sun.svg'
-import './App.css'
-
+import React, { Fragment, useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Home from "./components/Home/Home";
+import Details from "./components/CountryDetail/CountryDetails";
+import lightImage from "./assets/icon-moon.svg";
+import darkImage from "./assets/icon-sun.svg";
+import "./App.css";
 
 function App() {
-  const [countries, setCountries] = useState([])
-  const [filteredCountries, setFilteredCountries] = useState(countries)
-  const [image, setImage] = useState(darkImage)
-  const [modal, setModal] = useState(false)
+  const [countries, setCountries] = useState([]);
+  const [filteredCountries, setFilteredCountries] = useState(countries);
+  const [image, setImage] = useState(darkImage);
+  const [modal, setModal] = useState(false);
   const [mode, setMode] = useState({
     shadow: {
-        backgroundColor:'white',
-        color: 'black',
-        boxShadow:'1px 1px 2px 0 gray'
+      backgroundColor: "white",
+      color: "black",
+      boxShadow: "1px 1px 2px 0 gray",
     },
     color: {
-      color: 'black'
-    }
-  })
+      color: "black",
+    },
+  });
   const modalHandleClick = () => {
-    setModal(prev => !prev)
-  }
+    setModal((prev) => !prev);
+  };
   const fetchData = () => {
-    fetch('https://restcountries.com/v3.1/all')
-    .then(res => res.json())
-    .then(data => setCountries(data))
-    .catch(err => console.log(err))
-  }
+    fetch("https://restcountries.com/v3.1/all")
+      .then((res) => res.json())
+      .then((data) => setCountries(data))
+      .catch((err) => console.log(err));
+  };
   useEffect(() => {
-  fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
   useEffect(() => {
-   let data = localStorage.getItem('countries')
-    setFilteredCountries(JSON.parse(data)) 
-  },[])
-  
+    let data = localStorage.getItem("countries");
+    setFilteredCountries(JSON.parse(data));
+  }, []);
+
   useEffect(() => {
-    localStorage.setItem('countries',JSON.stringify(filteredCountries))
-  })
+    localStorage.setItem("countries", JSON.stringify(filteredCountries));
+  });
 
   const handleChange = (e) => {
-    let filtered = countries.filter(item => item.name.common.includes(e.target.value))
-    if (e.target.value === '') {
-       setFilteredCountries(countries)
+    let filtered = countries.filter((item) =>
+      item.name.common.includes(e.target.value)
+    );
+    if (e.target.value === "") {
+      setFilteredCountries(countries);
     } else {
-      setFilteredCountries(prev => filtered)
+      setFilteredCountries((prev) => filtered);
     }
-  }
-  const countryNames = filteredCountries.map(items => items)
+  };
+  const countryNames = filteredCountries.map((items) => items);
 
-  const body = document.querySelector('body')
+  const body = document.querySelector("body");
   const modeHandleClick = () => {
-    setImage(prev => prev === darkImage ? lightImage: darkImage)
-    body.classList.toggle('dark')
-    setMode(prev =>
-      image === darkImage ?
-        {
-          shadow: {
-              backgroundColor: 'hsl(209, 23%, 22%)',
-              color: 'white',
-              boxShadow: '1px 1px 2px 0 gray'
-          },
-          color: {
-            color:'white'
+    setImage((prev) => (prev === darkImage ? lightImage : darkImage));
+    body.classList.toggle("dark");
+    setMode((prev) =>
+      image === darkImage
+        ? {
+            shadow: {
+              backgroundColor: "hsl(209, 23%, 22%)",
+              color: "white",
+              boxShadow: "1px 1px 2px 0 gray",
+            },
+            color: {
+              color: "white",
+            },
           }
-        } : {
-          shadow: {
-            backgroundColor: 'white',
-          color: 'black',
-          boxShadow: '1px 1px 2px 0 gray'
-          }, color: {
-          color:'black'
-        }
-        }  
-    )
-  }
+        : {
+            shadow: {
+              backgroundColor: "white",
+              color: "black",
+              boxShadow: "1px 1px 2px 0 gray",
+            },
+            color: {
+              color: "black",
+            },
+          }
+    );
+  };
   const filterHandleClick = (region) => {
-    if (region === 'All') {
-       setFilteredCountries(countries)
-   }else if (region === 'Africa') {
-      setFilteredCountries(countries.filter(country => country.region === region))
-      console.log(countries)
-    } else if (region === 'Americas') {
-       setFilteredCountries(countries.filter(country => country.region === region))
-      console.log(countries)
-    } else if (region === 'Asia') {
-        setFilteredCountries(countries.filter(country => country.region === region))
-    } else if (region === 'Europe') {
-      setFilteredCountries(countries.filter(country => country.region === region))
-    } else if (region === 'Oceania') {
-      setFilteredCountries(countries.filter(country => country.region === region))
+    if (region === "All") {
+      setFilteredCountries(countries);
+    } else if (region === "Africa") {
+      setFilteredCountries(
+        countries.filter((country) => country.region === region)
+      );
+      console.log(countries);
+    } else if (region === "Americas") {
+      setFilteredCountries(
+        countries.filter((country) => country.region === region)
+      );
+      console.log(countries);
+    } else if (region === "Asia") {
+      setFilteredCountries(
+        countries.filter((country) => country.region === region)
+      );
+    } else if (region === "Europe") {
+      setFilteredCountries(
+        countries.filter((country) => country.region === region)
+      );
+    } else if (region === "Oceania") {
+      setFilteredCountries(
+        countries.filter((country) => country.region === region)
+      );
     }
-  }
+  };
   return (
     <BrowserRouter>
-    <Fragment>
-      <Header image={image} handleClick ={modeHandleClick} mode={mode.shadow} />
+      <Fragment>
+        <Header
+          image={image}
+          handleClick={modeHandleClick}
+          mode={mode.shadow}
+        />
         <Routes>
-          <Route path='/' element={<Home modal={modal} filterHandleClick={filterHandleClick} handleClick={modalHandleClick} countries={countryNames} handleChange={handleChange} mode={mode.shadow} />  } />
-          <Route path='/:id' element={<Details countries={countryNames} mode={mode}/>  } />
+          <Route
+            path="/"
+            element={
+              <Home
+                modal={modal}
+                filterHandleClick={filterHandleClick}
+                handleClick={modalHandleClick}
+                countries={countryNames}
+                handleChange={handleChange}
+                mode={mode.shadow}
+              />
+            }
+          />
+          <Route
+            path="/:id"
+            element={<Details countries={countryNames} mode={mode} />}
+          />
         </Routes>
       </Fragment>
     </BrowserRouter>

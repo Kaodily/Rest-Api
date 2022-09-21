@@ -1,10 +1,9 @@
 import {Link} from 'react-router-dom'
 const Countries = ({ name,mode}) => {
-//   console.log(name)
     return (
             <Link to={{pathname:`/${name.name.common}`}}>
-                <div className='flex flex-wrap justify-center mt-9' >
-                    <div className='mb-8 rounded-md h-[280px] w-[60%] bg-white  ' style={mode}>
+                <div className='flex justify-center mt-9 sm:mr-9 ' >
+                    <div className='mb-8 rounded-md h-[300px] w-[200px] bg-white ' style={mode}>
                         <div className='w-full h-[130px]'>
                             <img className='w-[100%] h-full' src={name.flags.png} alt="" />
                         </div>
