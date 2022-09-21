@@ -10,52 +10,101 @@ import './App.css'
 
 function App() {
   const [countries, setCountries] = useState([])
+  const [filteredCountries, setFilteredCountries] = useState(countries)
   const [image, setImage] = useState(darkImage)
+  const [modal, setModal] = useState(false)
+  const [mode, setMode] = useState({
+    shadow: {
+        backgroundColor:'white',
+        color: 'black',
+        boxShadow:'1px 1px 2px 0 gray'
+    },
+    color: {
+      color: 'black'
+    }
+  })
+  const modalHandleClick = () => {
+    setModal(prev => !prev)
+  }
   const fetchData = () => {
     fetch('https://restcountries.com/v3.1/all')
-      .then(res => res.json())
-      .then(data => setCountries(data))
+    .then(res => res.json())
+    .then(data => setCountries(data))
     .catch(err => console.log(err))
   }
   useEffect(() => {
-    fetchData()
+  fetchData()
   }, [])
- 
+
   useEffect(() => {
-    let data = localStorage.getItem('countries')
-    setCountries(JSON.parse(data))
-    console.log(countries)
-  }, [])
+   let data = localStorage.getItem('countries')
+    setFilteredCountries(JSON.parse(data)) 
+  },[])
   
   useEffect(() => {
-    localStorage.setItem('countries',JSON.stringify(countries))
+    localStorage.setItem('countries',JSON.stringify(filteredCountries))
   })
+
   const handleChange = (e) => {
-    // let filtered = countries.filter(item => item.name.common.includes(e.target.value))
+    let filtered = countries.filter(item => item.name.common.includes(e.target.value))
     if (e.target.value === '') {
-      fetchData()
-      console.log(countries)
+       setFilteredCountries(countries)
     } else {
-      setCountries(prev => prev.filter(item => item.name.common.includes(e.target.value)))
-      
+      setFilteredCountries(prev => filtered)
     }
   }
-  console.log(countries)
-  const countryNames = countries.map(items => items)
+  const countryNames = filteredCountries.map(items => items)
 
   const body = document.querySelector('body')
-  const handleClick = () => {
+  const modeHandleClick = () => {
     setImage(prev => prev === darkImage ? lightImage: darkImage)
     body.classList.toggle('dark')
+    setMode(prev =>
+      image === darkImage ?
+        {
+          shadow: {
+              backgroundColor: 'hsl(209, 23%, 22%)',
+              color: 'white',
+              boxShadow: '1px 1px 2px 0 gray'
+          },
+          color: {
+            color:'white'
+          }
+        } : {
+          shadow: {
+            backgroundColor: 'white',
+          color: 'black',
+          boxShadow: '1px 1px 2px 0 gray'
+          }, color: {
+          color:'black'
+        }
+        }  
+    )
   }
-  // console.log(countries)
+  const filterHandleClick = (region) => {
+    if (region === 'All') {
+       setFilteredCountries(countries)
+   }else if (region === 'Africa') {
+      setFilteredCountries(countries.filter(country => country.region === region))
+      console.log(countries)
+    } else if (region === 'Americas') {
+       setFilteredCountries(countries.filter(country => country.region === region))
+      console.log(countries)
+    } else if (region === 'Asia') {
+        setFilteredCountries(countries.filter(country => country.region === region))
+    } else if (region === 'Europe') {
+      setFilteredCountries(countries.filter(country => country.region === region))
+    } else if (region === 'Oceania') {
+      setFilteredCountries(countries.filter(country => country.region === region))
+    }
+  }
   return (
     <BrowserRouter>
     <Fragment>
-      <Header image={image} handleClick ={handleClick} />
+      <Header image={image} handleClick ={modeHandleClick} mode={mode.shadow} />
         <Routes>
-          <Route path='/' element={<Home countries={countryNames} handleChange={handleChange} />  } />
-          <Route path='/:id' element={<Details countries={countryNames} />  } />
+          <Route path='/' element={<Home modal={modal} filterHandleClick={filterHandleClick} handleClick={modalHandleClick} countries={countryNames} handleChange={handleChange} mode={mode.shadow} />  } />
+          <Route path='/:id' element={<Details countries={countryNames} mode={mode}/>  } />
         </Routes>
       </Fragment>
     </BrowserRouter>
