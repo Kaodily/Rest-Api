@@ -10,12 +10,12 @@ export const Regions = ({mode,modal,handleClick}) => {
         modal && (
             <div className='w-[190px] top-[215px] md:top-[145px] mx-5 absolute h-[150px] text-[12px] font-bold' style={mode} >
             <ul className="py-3 px-5 ">
-                <li className="mb-1" onClick={() => handleClick('All')}>All</li>
-                <li className="mb-1" onClick={() => handleClick('Africa')}>Africa</li>
-                <li className="mb-1" onClick={()=> handleClick('Americas')}>America</li>
-                <li className="mb-1" onClick={()=>handleClick('Asia')}>Asia</li>
-                <li className="mb-1" onClick={()=>handleClick('Europe')}>Europe</li>
-                <li className="mb-1" onClick={()=>handleClick('Oceania')}>Oceania</li>
+                <li className="mb-1 cursor-pointer hover:text-red-600" onClick={() => handleClick('All')}>All</li>
+                <li className="mb-1 cursor-pointer hover:text-red-600" onClick={() => handleClick('Africa')}>Africa</li>
+                <li className="mb-1 cursor-pointer hover:text-red-600" onClick={()=> handleClick('Americas')}>America</li>
+                <li className="mb-1 cursor-pointer hover:text-red-600" onClick={()=>handleClick('Asia')}>Asia</li>
+                <li className="mb-1 cursor-pointer hover:text-red-600" onClick={()=>handleClick('Europe')}>Europe</li>
+                <li className="mb-1 cursor-pointer hover:text-red-600" onClick={()=>handleClick('Oceania')}>Oceania</li>
             </ul>
         </div>
         )
