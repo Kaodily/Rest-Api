@@ -25,6 +25,7 @@ function App() {
   const modalHandleClick = () => {
     setModal((prev) => !prev);
   };
+
   const fetchData = () => {
     fetch("https://restcountries.com/v3.1/all")
       .then((res) => res.json())
@@ -38,18 +39,18 @@ function App() {
   useEffect(() => {
     let data = localStorage.getItem("countries");
     setFilteredCountries(JSON.parse(data));
-    return () => {
-      localStorage.removeItem(countries);
-    }
-  }, []);
+  },[]);
+
 
   useEffect(() => {
-    localStorage.setItem("countries", JSON.stringify(filteredCountries));
-  });
-
+    localStorage.setItem("countries", JSON.stringify(countries));
+  }, [countries]);
+  
   const handleChange = (e) => {
+    let sliced = e.target.value.slice(0, 1).toUpperCase()
+    let country = sliced + e.target.value.slice(1)
     let filtered = countries.filter((item) =>
-      item.name.common.includes(e.target.value)
+      item.name.common.includes(country)
     );
     if (e.target.value === "") {
       setFilteredCountries(countries);
@@ -57,9 +58,8 @@ function App() {
       setFilteredCountries((prev) => filtered);
     }
   };
-  const countryNames = filteredCountries.map((items) => items);
-
   const body = document.querySelector("body");
+
   const modeHandleClick = () => {
     setImage((prev) => (prev === darkImage ? lightImage : darkImage));
     body.classList.toggle("dark");
@@ -114,6 +114,7 @@ function App() {
       );
     }
   };
+  const countryNames = filteredCountries.map((items) => items);
   return (
     <BrowserRouter>
       <Fragment>
