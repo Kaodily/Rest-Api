@@ -38,6 +38,9 @@ function App() {
   useEffect(() => {
     let data = localStorage.getItem("countries");
     setFilteredCountries(JSON.parse(data));
+    return () => {
+      localStorage.removeItem(countries);
+    }
   }, []);
 
   useEffect(() => {
