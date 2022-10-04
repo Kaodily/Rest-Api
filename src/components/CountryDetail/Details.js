@@ -1,4 +1,9 @@
-const Details = ({ filtered,mode }) => {
+import { useContext } from "react";
+import { CountryContext } from "../../App";
+import {Link} from 'react-router-dom'
+
+const Details = ({ filtered, mode }) => {
+    const { countryNames } = useContext(CountryContext)
     const extract = (id) => {
         const native = Object.values(id)
         let values;
@@ -18,7 +23,6 @@ const Details = ({ filtered,mode }) => {
             languages += language[i] + '.'
      }
     }
-
     return (
      <div className="mx-9 py-4 " style={mode.color}>
             <div className="md:flex md:mt-[200px]">
@@ -40,11 +44,15 @@ const Details = ({ filtered,mode }) => {
             <div className="md:flex ">
             <h4 className="font-bold text-[14px] md:mr-2 mb-3 ">Border Countries :</h4>
              <div className="flex flex-wrap">
-                {filtered.borders.map((item, index) => {
+                        {filtered.borders.map((item, index) => {
+                            const filteredNames = countryNames.filter(m => m.cca3 === item)
                     return (
-                  <div key={index} className='mr-2 mb-2'style={mode.shadow} >
-            <button className="w-[93px] rounded-sm font-bold text-[12px] h-8 ">{item}</button>
-        </div> 
+                  <div key={index} className='mr-2 mb-2'style={mode.shadow} >    
+                 {filteredNames.map(item =>
+                     <Link to ={{pathname:`/${item.name.common}`}}>
+                       <button className="w-[93px] rounded-sm font-bold text-[12px] h-8 ">{item.name.common}</button>
+                     </Link>)}
+                        </div> 
                     ) 
                 })}
             </div> 

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { createContext, Fragment, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./components/Home/Home";
@@ -6,6 +6,8 @@ import Details from "./components/CountryDetail/CountryDetails";
 import lightImage from "./assets/icon-moon.svg";
 import darkImage from "./assets/icon-sun.svg";
 import "./App.css";
+ 
+export const CountryContext = createContext()
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -40,17 +42,16 @@ function App() {
     let data = localStorage.getItem("countries");
     setFilteredCountries(JSON.parse(data));
   },[]);
-
+console.log(countries)
 
   useEffect(() => {
     localStorage.setItem("countries", JSON.stringify(countries));
   }, [countries]);
   
   const handleChange = (e) => {
-    let sliced = e.target.value.slice(0, 1).toUpperCase()
-    let country = sliced + e.target.value.slice(1)
+    let sliced = e.target.value.slice(0, 1).toUpperCase() + e.target.value.slice(1)
     let filtered = countries.filter((item) =>
-      item.name.common.includes(country)
+      item.name.common.includes(sliced)
     );
     if (e.target.value === "") {
       setFilteredCountries(countries);
@@ -116,6 +117,7 @@ function App() {
   };
   const countryNames = filteredCountries.map((items) => items);
   return (
+   < CountryContext.Provider value ={{countryNames}}>
     <BrowserRouter>
       <Fragment>
         <Header
@@ -143,7 +145,8 @@ function App() {
           />
         </Routes>
       </Fragment>
-    </BrowserRouter>
+      </BrowserRouter>
+      </CountryContext.Provider>
   );
 }
 
