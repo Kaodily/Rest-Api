@@ -27,7 +27,6 @@ function App() {
   const modalHandleClick = () => {
     setModal((prev) => !prev);
   };
-
   const fetchData = () => {
     fetch("https://restcountries.com/v3.1/all")
       .then((res) => res.json())
@@ -42,7 +41,6 @@ function App() {
     let data = localStorage.getItem("countries");
     setFilteredCountries(JSON.parse(data));
   },[]);
-console.log(countries)
 
   useEffect(() => {
     localStorage.setItem("countries", JSON.stringify(countries));
@@ -95,7 +93,6 @@ console.log(countries)
       setFilteredCountries(
         countries.filter((country) => country.region === region)
       );
-      console.log(countries);
     } else if (region === "Americas") {
       setFilteredCountries(
         countries.filter((country) => country.region === region)
@@ -115,9 +112,13 @@ console.log(countries)
       );
     }
   };
+  const handleMouseLeave = () => {
+    setModal(prev => !prev)
+    console.log('hello')
+  }
   const countryNames = filteredCountries.map((items) => items);
   return (
-   < CountryContext.Provider value ={{countryNames}}>
+   < CountryContext.Provider value ={{countryNames,modal,filterHandleClick,handleMouseLeave}}>
     <BrowserRouter>
       <Fragment>
         <Header
@@ -130,10 +131,7 @@ console.log(countries)
             path="/"
             element={
               <Home
-                modal={modal}
-                filterHandleClick={filterHandleClick}
                 handleClick={modalHandleClick}
-                countries={countryNames}
                 handleChange={handleChange}
                 mode={mode.shadow}
               />
@@ -141,7 +139,7 @@ console.log(countries)
           />
           <Route
             path="/:id"
-            element={<Details countries={countryNames} mode={mode} />}
+            element={<Details  mode={mode} />}
           />
         </Routes>
       </Fragment>
