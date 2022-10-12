@@ -5,6 +5,7 @@ import Home from "./components/Home/Home";
 import Details from "./components/CountryDetail/CountryDetails";
 import lightImage from "./assets/icon-moon.svg";
 import darkImage from "./assets/icon-sun.svg";
+import Loading from "./components/Loading";
 import "./App.css";
  
 export const CountryContext = createContext()
@@ -114,9 +115,9 @@ function App() {
   };
   const handleMouseLeave = () => {
     setModal(prev => !prev)
-    console.log('hello')
   }
   const countryNames = filteredCountries.map((items) => items);
+ 
   return (
    < CountryContext.Provider value ={{countryNames,modal,filterHandleClick,handleMouseLeave}}>
     <BrowserRouter>
@@ -127,7 +128,9 @@ function App() {
           mode={mode.shadow}
         />
         <Routes>
-          <Route
+            {
+             countries.length !== 0 ?
+              <Route
             path="/"
             element={
               <Home
@@ -137,6 +140,8 @@ function App() {
               />
             }
           />
+                : <Route path="/" element={<Loading />} />
+         }
           <Route
             path="/:id"
             element={<Details  mode={mode} />}

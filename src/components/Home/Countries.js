@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom'
-const Countries = ({ name,mode}) => {
+const Countries = ({ name, mode }) => {
+
     return (
             <Link to={{pathname:`/${name.name.common}`}}>
                 <div className='flex justify-center mt-9 sm:mr-9 ' >
