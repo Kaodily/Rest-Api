@@ -1,11 +1,11 @@
 import React, { createContext, useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
+import Header from "./components/utils/Header";
 import Home from "./components/Home/Home";
 import Details from "./components/CountryDetail/CountryDetails";
 import lightImage from "./assets/icon-moon.svg";
 import darkImage from "./assets/icon-sun.svg";
-import Loading from "./components/Loading";
+import Loading from "./components/utils/Loading";
 import "./App.css";
 
 export const CountryContext = createContext();
