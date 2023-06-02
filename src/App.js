@@ -1,5 +1,5 @@
-import React, { createContext, Fragment, useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { createContext, useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./components/Home/Home";
 import Details from "./components/CountryDetail/CountryDetails";
@@ -7,8 +7,8 @@ import lightImage from "./assets/icon-moon.svg";
 import darkImage from "./assets/icon-sun.svg";
 import Loading from "./components/Loading";
 import "./App.css";
- 
-export const CountryContext = createContext()
+
+export const CountryContext = createContext();
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -41,14 +41,15 @@ function App() {
   useEffect(() => {
     let data = localStorage.getItem("countries");
     setFilteredCountries(JSON.parse(data));
-  },[]);
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("countries", JSON.stringify(countries));
   }, [countries]);
-  
+
   const handleChange = (e) => {
-    let sliced = e.target.value.slice(0, 1).toUpperCase() + e.target.value.slice(1)
+    let sliced =
+      e.target.value.slice(0, 1).toUpperCase() + e.target.value.slice(1);
     let filtered = countries.filter((item) =>
       item.name.common.includes(sliced)
     );
@@ -98,7 +99,6 @@ function App() {
       setFilteredCountries(
         countries.filter((country) => country.region === region)
       );
-      console.log(countries);
     } else if (region === "Asia") {
       setFilteredCountries(
         countries.filter((country) => country.region === region)
@@ -114,23 +114,17 @@ function App() {
     }
   };
   const handleMouseLeave = () => {
-    setModal(prev => !prev)
-  }
+    setModal((prev) => !prev);
+  };
   const countryNames = filteredCountries.map((items) => items);
- 
+
   return (
-   < CountryContext.Provider value ={{countryNames,modal,filterHandleClick,handleMouseLeave}}>
-    <BrowserRouter>
-      <Fragment>
-        <Header
-          image={image}
-          handleClick={modeHandleClick}
-          mode={mode.shadow}
-        />
-        <Routes>
-            {
-             countries.length !== 0 ?
-              <Route
+    <CountryContext.Provider
+      value={{ countryNames, modal, filterHandleClick, handleMouseLeave }}>
+      <Header image={image} handleClick={modeHandleClick} mode={mode.shadow} />
+      <Routes>
+        {countries.length !== 0 ? (
+          <Route
             path="/"
             element={
               <Home
@@ -140,16 +134,12 @@ function App() {
               />
             }
           />
-                : <Route path="/" element={<Loading />} />
-         }
-          <Route
-            path="/:id"
-            element={<Details  mode={mode} />}
-          />
-        </Routes>
-      </Fragment>
-      </BrowserRouter>
-      </CountryContext.Provider>
+        ) : (
+          <Route path="/" element={<Loading />} />
+        )}
+        <Route path="/:id" element={<Details mode={mode} />} />
+      </Routes>
+    </CountryContext.Provider>
   );
 }
 

@@ -2,73 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
-.bounce {
-  width: 10px;
-  margin-right: 5px;
-  height: 10px;
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 3px solid #fff;
   border-radius: 50%;
-  background-color: black;
-
-  animation: bounce-top 1.4s 1.5s infinite both;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
 }
-.bounce-delay{
-  width: 10px;
-  margin-right: 5px;
-  height: 10px;
+.loader::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  background-color: black;
-  animation: bounce-top 1.3s 1.5s infinite both;
+  border: 3px solid transparent;
+  border-bottom-color: #ff3d00;
 }
 
-@keyframes bounce-top {
+@keyframes rotation {
   0% {
-    -webkit-transform: translateY(-45px);
-            transform: translateY(-45px);
-    -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in;
-    opacity: 1;
-  }
-  24% {
-    opacity: 1;
-  }
-  40% {
-    -webkit-transform: translateY(-24px);
-            transform: translateY(-24px);
-    -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in;
-  }
-  65% {
-    -webkit-transform: translateY(-12px);
-            transform: translateY(-12px);
-    -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in;
-  }
-  82% {
-    -webkit-transform: translateY(-6px);
-            transform: translateY(-6px);
-    -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in;
-  }
-  93% {
-    -webkit-transform: translateY(-4px);
-            transform: translateY(-4px);
-    -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in;
-  }
-  25%,
-  55%,
-  75%,
-  87% {
-    -webkit-transform: translateY(0px);
-            transform: translateY(0px);
-    -webkit-animation-timing-function: ease-out;
-            animation-timing-function: ease-out;
+    transform: rotate(0deg);
   }
   100% {
-    -webkit-transform: translateY(0px);
-            transform: translateY(0px);
-    -webkit-animation-timing-function: ease-out;
-            animation-timing-function: ease-out;
-    opacity: 1;
+    transform: rotate(360deg);
   }
 }

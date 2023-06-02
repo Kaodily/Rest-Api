@@ -1,10 +1,11 @@
 import { useContext } from "react"
 import { CountryContext } from "../../App"
+import {IoIosArrowDown} from "react-icons/io"
 
 export const Filtered = ({mode,handleClick}) => {
     return (
-        <div className="w-[190px] h-10 mx-5 md:mt-9 rounded-sm text-[12px] font-bold px-4 flex items-center " style={mode} onClick={handleClick}>
-            <p>Filter by Region</p>  
+        <div className="w-[190px] h-10 mx-5 md:mt-9 rounded-sm text-[12px] font-bold px-9 flex items-center " style={mode} onClick={handleClick}>
+            <button className="flex justify-between items-center">Filter by Region  <IoIosArrowDown fontSize="0.9rem" /></button>  
         </div>
     )
 }

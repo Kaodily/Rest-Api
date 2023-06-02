@@ -1,13 +1,8 @@
-import '../index.css'
-
-
 const Loading = () => {
-    return(
-        <div className='flex justify-center pt-[300px]'>
-            <div className='bounce'></div>
-            <div className='bounce-delay'></div>
-            <div className='bounce'></div>
-        </div>
-    )
-}
-export default Loading
+  return (
+    <div className="absolute top-[50%] left-[50%] translate-x-[-50%]">
+      <div className="loader flex justify-center pt-[50%]"></div>
+    </div>
+  );
+};
+export default Loading;
