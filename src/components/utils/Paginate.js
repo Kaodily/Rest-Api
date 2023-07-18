@@ -8,7 +8,7 @@ const Paginate = ({ postPerPage, totalPost, paginate, currentPage }) => {
   }
 
   return (
-    <ul className="flex flex-wrap justify-end md:mr-8 lg:mr-14 mb-8">
+    <ul className="flex-wrap  lg:flex justify-end md:mr-8 lg:mr-14 mb-8">
       {pageNumber.map((number) => {
         return (
           <li

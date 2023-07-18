@@ -19,7 +19,7 @@ function App() {
     shadow: {
       backgroundColor: "white",
       color: "black",
-      boxShadow: "1px 1px 2px 0 gray",
+      boxShadow: "1px 11px 72px -22px rgba(38, 38, 38, 0.65)",
     },
     color: {
       color: "black",
@@ -70,7 +70,7 @@ function App() {
             shadow: {
               backgroundColor: "hsl(209, 23%, 22%)",
               color: "white",
-              boxShadow: "1px 1px 2px 0 gray",
+              boxShadow: "1px 11px 72px -22px rgba(38, 38, 38, 0.65)",
             },
             color: {
               color: "white",
@@ -80,7 +80,7 @@ function App() {
             shadow: {
               backgroundColor: "white",
               color: "black",
-              boxShadow: "1px 1px 2px 0 gray",
+              boxShadow: "1px 11px 72px -22px rgba(38, 38, 38, 0.65)",
             },
             color: {
               color: "black",

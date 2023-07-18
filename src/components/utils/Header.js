@@ -1,7 +1,8 @@
 const Header = ({ image, handleClick, mode }) => {
   return (
-    <div
-      className="flex justify-between h-16 md:px-9  bg-white items-center p-3 "
+   <section className="sticky top-0">
+     <div
+      className="flex justify-between  h-16 md:px-9  bg-white items-center p-3 "
       style={mode}>
       <p className="font-bold text-[13px] md:text-[15px]">
         Where in the world?
@@ -14,6 +15,7 @@ const Header = ({ image, handleClick, mode }) => {
         <p className="text-[12px] font-bold">Dark Mode</p>
       </div>
     </div>
+   </section>
   );
 };
 export default Header;
