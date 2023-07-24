@@ -28,19 +28,22 @@ function App() {
   const modalHandleClick = () => {
     setModal((prev) => !prev);
   };
-  const fetchData = () => {
-    fetch("https://restcountries.com/v3.1/all")
-      .then((res) => res.json())
-      .then((data) => setCountries(data))
-      .catch((err) => console.log(err));
+  const fetchData = async () => {
+    try {
+      const res = await fetch("https://restcountries.com/v3.1/all");
+      const data = await res.json();
+      setCountries(data);
+    } catch (err) {
+      console.log(err);
+    }
   };
   useEffect(() => {
     fetchData();
   }, []);
 
   useEffect(() => {
-    let data = localStorage.getItem("countries");
-    setFilteredCountries(JSON.parse(data));
+    let data = JSON.parse(localStorage.getItem("countries"));
+    setFilteredCountries(data);
   }, []);
 
   useEffect(() => {
