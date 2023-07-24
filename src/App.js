@@ -71,7 +71,7 @@ function App() {
       image === darkImage
         ? {
             shadow: {
-              backgroundColor: "hsl(209, 23%, 22%)",
+              backgroundColor:"hsl(209, 23%, 22%)",
               color: "white",
               boxShadow: "1px 11px 72px -22px rgba(38, 38, 38, 0.65)",
             },
